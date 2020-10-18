@@ -9,7 +9,8 @@ RUN pip install nbgitpuller
 # If you do switch to root, always be sure to add a "USER $NB_USER" command at the end of the
 # file to ensure the image runs as a unprivileged user by default.
 USER root
-RUN apt-get install nodejs npm
-RUN npm install -g --unsafe-perm ijavascript
-RUN ijsinstall --install=global
+RUN conda install -c conda-forge nodejs
+RUN npm install -g ijavascript itypescript
+RUN ijsinstall
+RUN its — install=local
 USER $NB_USER
