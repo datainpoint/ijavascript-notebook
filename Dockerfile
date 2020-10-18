@@ -8,11 +8,9 @@ FROM jupyter/minimal-notebook:612aa5710bf9
 RUN pip install nbgitpuller
 # If you do switch to root, always be sure to add a "USER $NB_USER" command at the end of the
 # file to ensure the image runs as a unprivileged user by default.
-USER root
 RUN conda install -c conda-forge nodejs
 RUN npm install -g ijavascript itypescript
 RUN ijsinstall
 RUN its — install=local
 # CMD ijs --ip=* --debug
 EXPOSE 8888
-USER $NB_USER
