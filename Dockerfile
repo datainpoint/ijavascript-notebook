@@ -13,4 +13,6 @@ RUN conda install -c conda-forge nodejs
 RUN npm install -g ijavascript itypescript
 RUN ijsinstall
 RUN its — install=local
+# CMD ijs --ip=* --debug
+EXPOSE 8888
 USER $NB_USER
