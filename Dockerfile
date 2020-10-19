@@ -5,7 +5,7 @@ RUN apt-get update
 RUN apt-get install -y nodejs npm
 USER jovyan
 RUN npm install -g --unsafe-perm ijavascript
-#RUN ijsinstall --install=global
+RUN ijsinstall
 #npm install -g itypescript && \
 #its --ts-hide-undefined --install=global
 #ENV HOME /root
