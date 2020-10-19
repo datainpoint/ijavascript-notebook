@@ -8,9 +8,7 @@ RUN apk add --update-cache alpine-sdk \
 RUN python3 -m pip install --upgrade pip && \
     python2 -m pip install --upgrade pip
 
-RUN python3 -m pip install jupyterlab && \
-    jupyter serverextension enable --py jupyterlab && \
-    python2 -m pip install ipykernel && \
+RUN python2 -m pip install ipykernel && \
     python2 -m ipykernel install --user
 
 RUN npm --unsafe-perm i -g ijavascript && \
