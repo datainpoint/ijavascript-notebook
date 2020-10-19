@@ -25,9 +25,9 @@ ENV PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/cond
 
 
 USER $NB_USER
-RUN npm install -g ijavascript
+RUN npm install -g ijavascript itypescript
 RUN ijsinstall
-
+RUN its --install=local
 
 # clean up, no need to clobber the image with python2
 USER root
