@@ -9,35 +9,42 @@ RUN pip install nbgitpuller
 # If you do switch to root, always be sure to add a "USER $NB_USER" command at the end of the
 # file to ensure the image runs as a unprivileged user by default.
 USER root
-# prerequisites with apt-get
-# we do install python(2) here because
-# some npm build part named gyp still requires it
-RUN apt-get update && apt-get install -y gcc g++ make python
+ENV DEBIAN_FRONTEND noninteractive
+RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    libssl-dev \
+    libzmq3-dev \
+    && apt-get clean -y \
+    && apt-get autoremove -y \
+    && rm -rf /tmp/* /var/tmp/* \
+    && rm -rf /var/lib/apt/lists/*
 
+USER root
+ENV NODE_VERSION 8.0.0
+ENV NODE_PACKAGE node-v$NODE_VERSION-linux-x64
+RUN mkdir -p $HOME/.node-gyp
+RUN wget -q https://nodejs.org/dist/v${NODE_VERSION}/${NODE_PACKAGE}.tar.xz \
+    && tar xf ${NODE_PACKAGE}.tar.xz \
+    && cp -R ${NODE_PACKAGE}/bin/* /usr/local/bin \
+    && cp -R ${NODE_PACKAGE}/include/* /usr/local/include \
+    && cp -R ${NODE_PACKAGE}/lib/* /usr/local/lib \
+    && cp -R ${NODE_PACKAGE}/share/* /usr/local/share \
+    && rm -r ${NODE_PACKAGE} \
+    && rm ${NODE_PACKAGE}.tar.xz
 
-# !!! dirty trick !!!
-# original PATH is
-# /opt/conda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-# move conda's path **at the end**
-# so that python resolves in /usr/bin/python(2)
-# but node is still found in conda
-ENV PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/conda/bin"
+# Install ijavascript as user jovyan
+USER jovyan
+ENV NODE_PATH /home/${NB_USER}/node_modules
+ENV PATH ${NODE_PATH}/.bin:${PATH}
+RUN npm install --prefix /home/$NB_USER ijavascript
 
-RUN apt-get install nodejs npm
-RUN npm install -g --unsafe-perm ijavascript
-RUN ijsinstall --install=global
-ENV SERVER_PORT 8888
-EXPOSE $SERVER_PORT
-#RUN npm --unsafe-perm i -g ijavascript && \
-#    ijsinstall --install=global
-# clean up, no need to clobber the image with python2
-RUN apt-get autoremove -y python
+# Modify startup script to run ijavascript
+USER root
+RUN printf "#!/bin/bash\n$(which ijs)\n" \
+    > /usr/local/bin/start-notebook.sh
 
-
-# !!! and restore original PATH !!!
-ENV PATH="/opt/conda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-# somehow node won't find stuff installed by npm, this band-aid will help
-ENV NODE_PATH="/opt/conda/lib/node_modules/"
+# Switch back to jovyan to avoid accidental container runs as root
 USER jovyan
 
 # additional packages could be installed here
