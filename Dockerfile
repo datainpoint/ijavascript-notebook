@@ -1,7 +1,11 @@
 FROM jupyter/minimal-notebook:feacdbfc2e89
 
-RUN conda install nodejs npm
-#USER root
+USER root
+RUN npm install -g --unsafe-perm ijavascript \
+    && ijsinstall --hide-undefined --install=global
+
+RUN npm install -g --unsafe-perm itypescript \
+    && its --ts-hide-undefined --install=global
 #RUN npm install -g --unsafe-perm ijavascript
 #RUN ijsinstall --install=global
 #ENV HOME /root
