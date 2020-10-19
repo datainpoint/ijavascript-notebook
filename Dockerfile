@@ -20,6 +20,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /tmp/* /var/tmp/* \
     && rm -rf /var/lib/apt/lists/*
 
+ENV NB_USER jovyan
 ENV NODE_VERSION 8.0.0
 ENV NODE_PACKAGE node-v$NODE_VERSION-linux-x64
 RUN mkdir -p $HOME/.node-gyp
