@@ -24,11 +24,14 @@ RUN apt-get update && apt-get install -y gcc g++ make python
 ENV PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/conda/bin"
 
 
-USER $NB_USER
-RUN npm install -g ijavascript
-RUN ijsinstall
-#RUN its --install=local
+USER jovyan
+#RUN npm install -g ijavascript
+#RUN ijsinstall
+RUN npm --unsafe-perm i -g ijavascript && \
+    ijsinstall --install=global
 
+ENV SERVER_PORT 8888
+EXPOSE $SERVER_PORT
 # clean up, no need to clobber the image with python2
 USER root
 RUN apt-get autoremove -y python
@@ -40,7 +43,7 @@ ENV PATH="/opt/conda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin
 
 # somehow node won't find stuff installed by npm, this band-aid will help
 ENV NODE_PATH="/opt/conda/lib/node_modules/"
-USER $NB_USER
+USER jovyan
 
 # additional packages could be installed here
 #RUN npm install -g jsdom d3 ijavascript-plotly plotly-notebook-js
