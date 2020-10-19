@@ -2,8 +2,8 @@ FROM jupyter/minimal-notebook:feacdbfc2e89
 
 USER root
 RUN apt-get update
-RUN apt-get install nodejs npm
-USER $NB_USER
+RUN apt-get install -y nodejs npm
+USER jovyan
 #RUN npm install -gijavascript && \
 #    ijsinstall && \
 #    npm install -g itypescript && \
