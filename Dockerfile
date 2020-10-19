@@ -25,13 +25,12 @@ ENV PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/cond
 
 
 USER jovyan
-#RUN npm install -g ijavascript
-#RUN ijsinstall
-RUN npm --unsafe-perm i -g ijavascript && \
-    ijsinstall --install=global
-
+RUN npm install -g ijavascript
+RUN ijsinstall
 ENV SERVER_PORT 8888
 EXPOSE $SERVER_PORT
+#RUN npm --unsafe-perm i -g ijavascript && \
+#    ijsinstall --install=global
 # clean up, no need to clobber the image with python2
 USER root
 RUN apt-get autoremove -y python
@@ -39,8 +38,6 @@ RUN apt-get autoremove -y python
 
 # !!! and restore original PATH !!!
 ENV PATH="/opt/conda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-
-
 # somehow node won't find stuff installed by npm, this band-aid will help
 ENV NODE_PATH="/opt/conda/lib/node_modules/"
 USER jovyan
