@@ -9,7 +9,6 @@ RUN pip install nbgitpuller
 # If you do switch to root, always be sure to add a "USER $NB_USER" command at the end of the
 # file to ensure the image runs as a unprivileged user by default.
 USER root
-ENV DEBIAN_FRONTEND noninteractive
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
@@ -20,7 +19,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /tmp/* /var/tmp/* \
     && rm -rf /var/lib/apt/lists/*
 
-ENV NB_USER jovyan
 ENV NODE_VERSION 8.0.0
 ENV NODE_PACKAGE node-v$NODE_VERSION-linux-x64
 RUN mkdir -p $HOME/.node-gyp
@@ -35,9 +33,9 @@ RUN wget -q https://nodejs.org/dist/v${NODE_VERSION}/${NODE_PACKAGE}.tar.xz \
 
 # Install ijavascript as user jovyan
 USER jovyan
-ENV NODE_PATH /home/${NB_USER}/node_modules
+ENV NODE_PATH /home/jovyan/node_modules
 ENV PATH ${NODE_PATH}/.bin:${PATH}
-RUN npm install --prefix /home/$NB_USER ijavascript
+RUN npm install --prefix /home/jovyan ijavascript
 
 # Modify startup script to run ijavascript
 USER root
