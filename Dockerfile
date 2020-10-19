@@ -25,7 +25,7 @@ ENV PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/cond
 
 
 USER $NB_USER
-RUN npm install -g ijavascript itypescript
+RUN npm install -g ijavascript
 RUN ijsinstall
 #RUN its --install=local
 
