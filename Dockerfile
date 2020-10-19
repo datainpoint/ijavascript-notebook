@@ -36,6 +36,7 @@ USER jovyan
 ENV NODE_PATH /home/jovyan/node_modules
 ENV PATH ${NODE_PATH}/.bin:${PATH}
 RUN npm install --prefix /home/jovyan ijavascript
+RUN ijs --ijs-install-kernel
 
 # Modify startup script to run ijavascript
 USER root
