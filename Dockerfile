@@ -2,11 +2,9 @@ FROM jupyter/minimal-notebook:feacdbfc2e89
 
 USER root
 RUN apt-get update
+RUN curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+RUN apt-get install -y nodejs
 RUN apt-get install -y npm
-USER jovyan
-RUN npm install -g n
-USER root
-RUN n 8.0.0
 USER jovyan
 RUN npm install -g --unsafe-perm ijavascript
 RUN ijsinstall
