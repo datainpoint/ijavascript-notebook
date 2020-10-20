@@ -5,7 +5,9 @@ RUN apt-get update
 RUN apt-get install -y npm
 USER jovyan
 RUN npm install -g n
+USER root
 RUN n 8.0.0
+USER jovyan
 RUN npm install -g --unsafe-perm ijavascript
 RUN ijsinstall
 #npm install -g itypescript && \
