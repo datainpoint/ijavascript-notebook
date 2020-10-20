@@ -1,13 +1,8 @@
 FROM jupyter/minimal-notebook:feacdbfc2e89
 
 USER root
-RUN apt-get update -y --no-install-recommends \
-	file \
-	libunwind-dev \
-	fonts-dejavu \
-	gfortran && \ 
-	rm -rf /var/apt/lists/* && \
-        apt-get clean -y 
+RUN apt-get update
+RUN rm -rf /var/apt/lists/*
 #RUN apt-get install -y curl
 #RUN curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
 RUN apt-get install -y nodejs
