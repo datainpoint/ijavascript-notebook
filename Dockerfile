@@ -6,9 +6,9 @@ RUN apt-get update
 #RUN curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 RUN apt-get install -y nodejs
 RUN apt-get install -y npm
+RUN npm install -g --unsafe-perm itypescript
+RUN its
 USER jovyan
 RUN npm install -g --unsafe-perm ijavascript
 RUN ijsinstall --spec-path=full
-RUN npm install -g itypescript
-RUN its
 RUN npm install -g tslab
