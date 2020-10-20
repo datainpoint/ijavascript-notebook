@@ -7,8 +7,8 @@ RUN apt-get update
 RUN apt-get install -y nodejs
 RUN apt-get install -y npm
 USER jovyan
-#RUN npm install -g --unsafe-perm ijavascript
-#RUN ijsinstall
+RUN npm install -g --unsafe-perm ijavascript
+RUN ijsinstall --spec-path=full
 RUN npm install -g tslab
 #npm install -g itypescript && \
 #its --ts-hide-undefined --install=global
