@@ -10,5 +10,5 @@ RUN apt-get install -y npm
 USER jovyan
 RUN npm install -g ijavascript # --unsafe-perm
 RUN ijsinstall --spec-path=full
-#RUN npm install -g tslab@latest
-#RUN tslab install
+RUN npm install -g tslab@latest
+RUN tslab install
