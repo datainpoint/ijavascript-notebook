@@ -12,3 +12,5 @@ RUN npm install -g ijavascript # --unsafe-perm
 RUN ijsinstall --spec-path=full
 RUN npm install -g tslab@latest
 RUN tslab install --python=python3
+# Add nbgitpuller
+RUN pip install nbgitpuller
