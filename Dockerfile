@@ -12,5 +12,5 @@ RUN npm install -g --unsafe-perm ijavascript
 RUN ijsinstall --spec-path=full
 #RUN npm install -g itypescript
 #RUN its --ts-hide-undefined --install=local
-RUN npm install -g tslab
+RUN npm install -g tslab@latest
 RUN tslab install
