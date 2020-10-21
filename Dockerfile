@@ -8,9 +8,7 @@ RUN rm -rf /var/apt/lists/*
 RUN apt-get install -y nodejs
 RUN apt-get install -y npm
 USER jovyan
-#RUN npm install -g --unsafe-perm ijavascript
-#RUN ijsinstall --spec-path=full
-#RUN npm install -g itypescript
-#RUN its --ts-hide-undefined --install=local
-RUN npm install -g tslab@latest
-RUN tslab install
+RUN npm install -g ijavascript # --unsafe-perm
+RUN ijsinstall --spec-path=full
+#RUN npm install -g tslab@latest
+#RUN tslab install
