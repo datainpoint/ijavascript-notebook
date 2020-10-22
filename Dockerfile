@@ -11,7 +11,7 @@ RUN apt-get clean
 #RUN apt-get install -y nodejs
 #RUN apt-get install -y npm
 RUN npm install -g --unsafe-perm ijavascript
-RUN ijsinstall --install=global
+#RUN ijsinstall --install=global
 RUN npm install -g tslab@latest
 RUN tslab install
 #RUN ijsinstall
