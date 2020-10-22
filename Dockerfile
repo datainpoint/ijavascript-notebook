@@ -22,8 +22,8 @@ RUN npm install -g ijavascript
 #RUN npm install -g tslab@latest
 RUN npm install -g tslab 
 RUN ijsinstall
-#RUN tslab install --python=python3
-RUN tslab install
+RUN tslab install --python=python3
+#RUN tslab install
 # !!! and restore original PATH !!!
 USER root
 ENV PATH="/opt/conda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
