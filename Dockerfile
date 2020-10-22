@@ -10,25 +10,12 @@ RUN apt-get clean
 #RUN curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
 #RUN apt-get install -y nodejs
 #RUN apt-get install -y npm
-# !!! dirty trick !!!
-# original PATH is
-# /opt/conda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-# move conda's path **at the end**
-# so that python resolves in /usr/bin/python(2)
-# but node is still found in conda
-ENV PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/conda/bin"
-USER jovyan
-RUN npm install -g ijavascript
+RUN npm install -g --unsafe-perm ijavascript
+RUN ijsinstall --install=global
 RUN npm install -g tslab@latest
-#RUN npm install -g tslab 
-RUN ijsinstall
-# !!! and restore original PATH !!!
-USER root
-ENV PATH="/opt/conda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-# somehow node won't find stuff installed by npm, this band-aid will help
-ENV NODE_PATH="/opt/conda/lib/node_modules/"
+RUN tslab install
+#RUN ijsinstall
 USER jovyan
 #RUN tslab install --python=python3
-RUN tslab install
 # Add nbgitpuller
 RUN pip install nbgitpuller
