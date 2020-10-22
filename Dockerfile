@@ -19,16 +19,16 @@ RUN apt-get clean
 ENV PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/conda/bin"
 USER jovyan
 RUN npm install -g ijavascript
-#RUN npm install -g tslab@latest
-RUN npm install -g tslab 
+RUN npm install -g tslab@latest
+#RUN npm install -g tslab 
 RUN ijsinstall
-RUN tslab install --python=python3
-#RUN tslab install
 # !!! and restore original PATH !!!
 USER root
 ENV PATH="/opt/conda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 # somehow node won't find stuff installed by npm, this band-aid will help
 ENV NODE_PATH="/opt/conda/lib/node_modules/"
 USER jovyan
+#RUN tslab install --python=python3
+RUN tslab install
 # Add nbgitpuller
 RUN pip install nbgitpuller
