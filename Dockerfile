@@ -18,4 +18,5 @@ RUN tslab install
 USER jovyan
 #RUN tslab install --python=python3
 # Add nbgitpuller
-RUN pip install nbgitpuller
+RUN pip install nbgitpuller jupyter-resource-usage
+RUN conda install rise
